@@ -1,2 +1,24 @@
 # Looker_Data_Analysis
-Get prepared for the Looker certifications ! Theory &amp; Practice : developement with LookML, Buisness / Data Analysis
+__Work in progress...__
+
+Get prepared for the Looker certifications ! 
+
+Theory &amp; Practice : developement with LookML, Buisness / Data Analysis
+
+## Introduction
+In the Theory chapter are presented my personnal notes that summerize everything one need to know in order to get prepared for those exams/certifications. Then in the Practice section, you'll find various projects / data analysis made with Looker & LookerML.
+
+## Contents
+- to be continued
+- to be continued
+- to be continued
+
+## Practice
+- to be continued
+- to be continued
+- to be continued
+
+## References
+- [Qwiklabs - Quest "Exploring Data with Looker"](https://anonym.to/?https://www.qwiklabs.com/quests/165?locale=fr)
+- [Lynda - Looker First Look](https://anonym.to/?https://www.lynda.com/Looker-tutorials/Looker-First-Look/585255-2.html) - a little bit old but interesting...
+- [Udemy - Mastering LookML: Looker's Modeling Language](https://anonym.to/?https://www.udemy.com/course/looker-lookml/)
