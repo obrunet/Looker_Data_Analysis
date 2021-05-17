@@ -2,14 +2,14 @@
 
 ## Personnal notes:
 
-1. Getting started:
+### 1. Getting started:
 
-### Why Looker: 
+#### Why Looker: 
 for EDA, dataviz, creating dashboards -> quick & accurate decisions with data analytics.
 
-### Concepts
-- Looks = saved reports thats provide answer to a single data question
-- Dashboards = answer to a set of related questions with a collection of tiles (list, chart, map...) - each provide answer to a specific question
+#### Concepts
+- __Looks__ = saved reports thats provide answer to a single data question
+- __Dashboards__ = answer to a set of related questions with a collection of tiles (list, chart, map...) - each provide answer to a specific question
 
 One can click on a part / an area of a chart to see the underlying data in a new window. There are also update option / clean cacha & refresh in order to use newer data.
 
@@ -17,12 +17,41 @@ Changes can be made temporary & only for "me" with filters.
 Depending on how they are made, tiles can listen or ignore some filters.
 
 __Share & send content__: 
+
 once:
   - a snapshot: download it or send the data
   - current: share the URL
+
 repeatedly: schedule it
 
+2. Building Reports:
 
+Side note: Looker lets you create an alert on a specific metric with scheduled checks (one can specify the frequence of the checks)
+
+__Dimensions__ = attributes records can be grouped by.
+
+__Measures__ = calculations on groups (count, total, avg...)
+
+__Filters__ created with:
+- the icon in the dimensions / measures left panel
+- or the gear in tables
+
+applied on:
+- dimension: filter raw data - done behind the scene - could lead to misinterpretation
+- measures: filter on rows from the result
+- or an user attribures by clicking on a dimension value
+
+__Folders__ are either shared, personnal, "all" depending on your permissions / rights.
+
+3. Creation of a dashboard from
+- an explore
+- a look
+- a blank dashboard
+
+3 types of piles:
+- query tiles: you specify the data you want to show, defined from an explore or the dashboard itself
+- look link tiles: use teh qury & viz of a saved report (Look). The linked look must be in the same folder. Used when several dashboards need the same tile.
+- text tiles: headers, descriptions...
 
 ## Recommended Looker knowledge & Looker Tools:
 - Maintain and debug LookML code
