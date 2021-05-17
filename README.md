@@ -23,6 +23,7 @@ In the Theory chapter are presented my personnal notes that summerize everything
   - [Looker Documentation](https://docs.looker.com/) 
   - [Lynda - Looker First Look](https://anonym.to/?https://www.lynda.com/Looker-tutorials/Looker-First-Look/585255-2.html) - a little bit old but interesting...
   - [Udemy - Mastering LookML: Looker's Modeling Language](https://anonym.to/?https://www.udemy.com/course/looker-lookml/)
+  - [Developing in Looker](https://vimeo.com/showcase/4978458)
 
 - Training
   - [Training by Looker](https://training.looker.com/) 
