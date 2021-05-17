@@ -9,14 +9,12 @@ Theory &amp; Practice : developement with LookML, Buisness / Data Analysis & Vis
 In the Theory chapter are presented my personnal notes that summerize everything one need to know in order to get prepared for those exams/certifications. Then in the Practice section, you'll find various projects / data analysis made with Looker & LookerML.
 
 ## Contents
-- to be continued
-- to be continued
-- to be continued
+- Getting started & Building Reports in Looker - [Key concepts]()
+- LookML Development - [Language]()
 
 ## Practice
 - to be continued
-- to be continued
-- to be continued
+
 
 ## References
 - Courses
