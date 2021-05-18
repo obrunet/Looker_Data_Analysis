@@ -1,13 +1,13 @@
 # LookML Developer
 
 Table of content:
-- [Getting started](Looker_Data_Analysis/tree/main/01.LookML_Dev#1-getting-started)
-- [Building Reports](Looker_Data_Analysis/tree/main/01.LookML_Dev#2-building-reports)
-- [LookerML](Looker_Data_Analysis/tree/main/01.LookML_Dev#3-lookerml)
+- [Getting started](01.LookML_Dev#1-getting-started)
+- [Building Reports](01.LookML_Dev#2-building-reports)
+- [LookerML](01.LookML_Dev#3-lookerml)
 
 Other ressources:
-- [API and SDK](Looker_Data_Analysis\01.LookML_Dev\python_api.md) 
-- [What you need to know for the certification](Looker_Data_Analysis\01.LookML_Dev\what_to_know.md)
+- [API and SDK](01.LookML_Dev\python_api.md) 
+- [What you need to know for the certification](01.LookML_Dev\what_to_know.md)
 
 ## 1. Getting started:
 

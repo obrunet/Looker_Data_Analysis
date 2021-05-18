@@ -14,10 +14,10 @@ In the Theory chapter are presented my personnal notes that summerize everything
 
 ## Contents
 - [Getting started](01.LookML_Dev#1-getting-started)
-- [Building Reports](Looker_Data_Analysis/tree/main/01.LookML_Dev#2-building-reports)
-- [LookerML](Looker_Data_Analysis/tree/main/01.LookML_Dev#3-lookerml)
-- [Python API](Looker_Data_Analysis\01.LookML_Dev\python_api.md) 
-- [LookerML certification](Looker_Data_Analysis\01.LookML_Dev\what_to_know.md)
+- [Building Reports](01.LookML_Dev#2-building-reports)
+- [LookerML](01.LookML_Dev#3-lookerml)
+- [Python API](01.LookML_Dev\python_api.md) 
+- [LookerML certification](01.LookML_Dev\what_to_know.md)
 
 ## Practice
 - to be continued
