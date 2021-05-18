@@ -107,6 +107,179 @@ The email dimension can be reused by referring to it with ${email}.
 
 7. Views
 
-= represent tables in your db. 
-
+In a project, you can generate view files that represent tables in your DB. 
 A dimension will be automatically generated for each column in a table & a count measure.
+
+A view represents a table of data in Looker, whether a native database table or a derived table. Typically, views are declared in a view file with one view per file.
+
+8. Creation of dimensions
+
+__Dimensions__ = 
+  - columns in the DB or row-level calculations based on columns in the DB
+  - the most fundamental building block in LookML
+  - come in a variety of types: number, date, and string...
+  
+__String__:
+- used for any columns with CHAR or VARCHAR datatypes
+- the default dimension type in Looker
+
+string concatenation example:
+```
+view: users {
+  sql_table_name: public.users ;;
+
+  # here Redshift is used so the  || syntax to concatinate
+  # substitution syntax: ${first_name} instead of ${TABLE}.first_name
+
+  dimension: first_name {
+    type: string
+    sql: ${TABLE}.first_name ;;
+  }
+
+  dimension: last_name {
+    type: string
+    sql: ${TABLE}.last_name ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' - ' || ${last_name} ;;
+  }
+```
+
+__Number__: similar logic, allow you to add, subtract, or transform any numeric columns.
+
+```
+  dimension: cost {
+    type: number
+    sql: ${TABLE}.cost ;;
+    value_format_name: usd
+  }
+
+  dimension: tax_amount {
+    type: number
+    sql: ${cost}*0.06 ;;
+    value_format_name: usd
+  }
+
+  dimension: cost_including_tax {
+    type:  number
+    sql:  ${cost} + ${tax_amount} ;;
+    value_format_name: usd
+  }
+```
+
+__Timeframe__: Timestamps & dates in Looker are handled in a unique way. A timestamp from your  DB --> a dimension group is created with a type: time.
+
+This dimension group converts the timestamps into a variety of date and time parts (see various parameters).
+
+The raw timestamp from the DB won’t appear for end users (useful for time zone conversions...). When one of the dimension group timeframes is selected, SQL will be generated with the appropriate dialect-specific date and time conversions.
+
+```
+  dimension_group: created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.created_at ;;
+  }
+```
+substitution syntax: ${dimensiongroup_field} for example ${created_month}.  
+${created_date} is a string.
+
+__Duration__: dimension group which calculate the difference between a start and end date. 
+
+The sql_start and sql_end dates can take columns in your DB, or any valid SQL expression (timestamp, datetime, date, epoch, or yyyymmdd format). 
+```
+ dimension_group: shipped {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.shipped_at ;;
+  }
+  
+  # same thing with created
+  
+  dimension_group: fulfillment {
+    type: duration
+    intervals: [
+      hour,
+      day,
+      week
+    ]
+    sql_start: ${created_raw} ;;
+    sql_end: ${shipped_raw} ;;
+  }
+```
+
+__YesNo__: ie boolean, rather than a result of true or false, this type of dimension results in an output of yes or no.
+You only need to specify the yes condition, and Looker'll build a case statement (blank & null values will also return a no result). 
+In the generated SQL of an Explore, will appear the corresponding CASE WHEN statement.
+
+```
+  dimension: long_fulfillment {
+    description: "Yes means the order took over 7 days to fulfill."
+    type: yesno
+    sql: ${days_fulfillment} > 7 ;;
+  }
+```
+
+__Tier__: for bucketing to sort values into the ranges you specify.
+'style' indictates how the value groupings will appear in the front-end UI.
+```
+  dimension: age {
+    type: number
+    sql: ${TABLE}.age ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [0, 10, 20, 30, 40, 50, 60, 70, 80]
+    style: integer
+    sql: ${age} ;;
+  }
+```
+__Geographic__: 
+- Static area dimensions (country, state, or zip code) --> map layers in Looker. 
+
+Specify the map_layer_name parameter ie the map name where to visualize data.
+```
+  dimension: country {
+    type: string
+    map_layer_name: countries
+    sql: ${TABLE}.country ;;
+  }
+```
+- Latitude & longitude values --> point mapping.
+
+A new dimension named location of type: location. Most dimensions require only one SQL parameter, location dimensions require 2 specified by substitution syntax:
+```
+  dimension: latitude {
+    type: number
+    sql: ${TABLE}.latitude ;;
+  }
+
+  dimension: longitude {
+    type: number
+    sql: ${TABLE}.longitude ;;
+  }
+
+  dimension: location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
+  }
+```
