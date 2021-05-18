@@ -370,30 +370,32 @@ To use a set in a drill on a measure: reference the name of the set followed by 
     ]
   }
 ```
+11. Explore creation
 
-
-the lunch pause !!!!!!!!!!
-
-
+The FROM  clause in an SQL query is determined by an object called an Explore. It can include a single or multiple tables. You create Explores in the model file using the same logic.
+```
+explore: order_items {}
+```
+or with a join (available types: left outer join, inner join, full outer join, and cross join) a left join is used by defaut if type not mentionned:
 
 ```
-
+explore: order_items {
+  
+  join: orders {
+    type: left_outer    
+    sql_on: ${order_items.order_id} = ${orders.id} ;;   
+    relationship: many_to_one
+  }
+  join: users {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
 ```
+it's a starting points for users to query their data. Avoid having too many Explores (confusion) --> a clear purpose.
 
+__Symmetric Aggregation__ = analytical pattern to ensure that measures are calculated properly, even if [a Fanout Problem](https://looker.com/blog/aggregate-functions-gone-bad-and-the-joins-who-made-them-that-way) occurs (aggregates & joints can go wrong)
 
-
-```
-
-```
-
-
-
-```
-
-```
-
-
-
-```
-
-```
+2 things that must be done in order for symmetric aggregation to work:
+- Specify primary keys within all view files (a UID for the view).
+- Correctly specify the relationship parameter within a join. It indicates where fanout may occur: with many-to-one relationship the table on the "one" side might be fanned out when the join is executed.
