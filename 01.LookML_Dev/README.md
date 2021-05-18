@@ -1,5 +1,14 @@
 # LookML Developer
 
+Table of content:
+- [Getting started](Looker_Data_Analysis/tree/main/01.LookML_Dev#1-getting-started)
+- [Building Reports](Looker_Data_Analysis/tree/main/01.LookML_Dev#2-building-reports)
+- [LookerML](Looker_Data_Analysis/tree/main/01.LookML_Dev#3-lookerml)
+
+Other ressources:
+- [API and SDK](Looker_Data_Analysis\01.LookML_Dev\python_api.md) 
+- [What you need to know for the certification](Looker_Data_Analysis\01.LookML_Dev\what_to_know.md)
+
 ## 1. Getting started:
 
 ### Why Looker: 
@@ -91,7 +100,7 @@ You define your __business logic based on columns__ in your table. When you add 
 
 Syntax
 
-```
+```sql
 parameter: value // dimension with curly brackets
 
 sql_table_name: public.orders;;
@@ -124,7 +133,7 @@ __String__:
 - the default dimension type in Looker
 
 string concatenation example:
-```
+```sql
 view: users {
   sql_table_name: public.users ;;
 
@@ -149,7 +158,7 @@ view: users {
 
 __Number__: similar logic, allow you to add, subtract, or transform any numeric columns.
 
-```
+```sql
   dimension: cost {
     type: number
     sql: ${TABLE}.cost ;;
@@ -175,7 +184,7 @@ This dimension group converts the timestamps into a variety of date and time par
 
 The raw timestamp from the DB won’t appear for end users (useful for time zone conversions...). When one of the dimension group timeframes is selected, SQL will be generated with the appropriate dialect-specific date and time conversions.
 
-```
+```sql
   dimension_group: created {
     type: time
     timeframes: [
@@ -196,7 +205,7 @@ ${created_date} is a string.
 __Duration__: dimension group which calculate the difference between a start and end date. 
 
 The sql_start and sql_end dates can take columns in your DB, or any valid SQL expression (timestamp, datetime, date, epoch, or yyyymmdd format). 
-```
+```sql
  dimension_group: shipped {
     type: time
     timeframes: [
@@ -229,7 +238,7 @@ __YesNo__: ie boolean, rather than a result of true or false, this type of dimen
 You only need to specify the yes condition, and Looker'll build a case statement (blank & null values will also return a no result). 
 In the generated SQL of an Explore, will appear the corresponding CASE WHEN statement.
 
-```
+```sql
   dimension: long_fulfillment {
     description: "Yes means the order took over 7 days to fulfill."
     type: yesno
@@ -239,7 +248,7 @@ In the generated SQL of an Explore, will appear the corresponding CASE WHEN stat
 
 __Tier__: for bucketing to sort values into the ranges you specify.
 'style' indictates how the value groupings will appear in the front-end UI.
-```
+```sql
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -256,7 +265,7 @@ __Geographic__:
 - Static area dimensions (country, state, or zip code) --> map layers in Looker. 
 
 Specify the map_layer_name parameter ie the map name where to visualize data.
-```
+```sql
   dimension: country {
     type: string
     map_layer_name: countries
@@ -266,7 +275,7 @@ Specify the map_layer_name parameter ie the map name where to visualize data.
 - Latitude & longitude values --> point mapping.
 
 A new dimension named location of type: location. Most dimensions require only one SQL parameter, location dimensions require 2 specified by substitution syntax:
-```
+```sql
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -286,7 +295,7 @@ A new dimension named location of type: location. Most dimensions require only o
 9. Creation of measures
 
 Measures = objects used by Lookerto represent aggregate functions (sum, count, averages, count_distinct...), created in a similar manner to dimensions.
-```
+```sql
   dimension: product_sku {
     type: string
     sql: ${TABLE}.product_sku ;;
@@ -312,7 +321,7 @@ Do not confuse aggregate measures & non-aggregate dimensions in an Explore.
 How fields are labeled & organized ? --> adjust parameters for their appearence in the UI.
 
 __Hidden parameter__: not helpful for users (mainly used for creating aggregations) & no need to be exposed to users.
-```
+```sql
   dimension: id {
     hidden:  yes
     type:  number
@@ -321,7 +330,7 @@ __Hidden parameter__: not helpful for users (mainly used for creating aggregatio
 ```
 __Label parameter__: change the way a field’s name appears in the UI. By default, based on the LookML object name (1st letter of each word capitalized, & the underscores converted into spaces) 
 A custom name can be more recognizable to users or help to distinguish multiple count for instance.
-```
+```sql
   dimension: count {
     label:  "Number of order items"
     type:  number
@@ -329,7 +338,7 @@ A custom name can be more recognizable to users or help to distinguish multiple 
   }
 ```
 __Description parameter__: provides a definition of what a dimension/measure actually means
-```
+```sql
   dimension: long_fulfillment {
     description: "Yes means the order took over 7 days to fulfill."
     type: yesno
@@ -338,7 +347,7 @@ __Description parameter__: provides a definition of what a dimension/measure act
 ```
 
 __Drill Fields__: helpful to have the option to see the more detailed data behind the aggregate number & specify what data should be available to users.
-```
+```sql
   measure: count {
     label: "Number of order items"
     type: count
@@ -350,7 +359,7 @@ used when you click on a number of a view to have more details in the new window
 __Sets__: allow you to define a list of fields in one place that you can then reuse as many times as you need. Update the list once to change it everywhere.
 
 To use a set in a drill on a measure: reference the name of the set followed by an __*__. 
-```
+```sql
   measure: count {
     label: "Number of order items"
     type: count
@@ -373,12 +382,12 @@ To use a set in a drill on a measure: reference the name of the set followed by 
 11. Explore creation
 
 The FROM  clause in an SQL query is determined by an object called an Explore. It can include a single or multiple tables. You create Explores in the model file using the same logic.
-```
+```sql
 explore: order_items {}
 ```
 or with a join (available types: left outer join, inner join, full outer join, and cross join) a left join is used by defaut if type not mentionned:
 
-```
+```sql
 explore: order_items {
   
   join: orders {
