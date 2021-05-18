@@ -283,3 +283,117 @@ A new dimension named location of type: location. Most dimensions require only o
     sql_longitude: ${longitude} ;;
   }
 ```
+9. Creation of measures
+
+Measures = objects used by Lookerto represent aggregate functions (sum, count, averages, count_distinct...), created in a similar manner to dimensions.
+```
+  dimension: product_sku {
+    type: string
+    sql: ${TABLE}.product_sku ;;
+  }
+
+  measure: count_distinct_sku {
+    type: count_distinct
+    sql: ${product_sku} ;;
+  }
+```
+an other example (one can use also sum)
+```
+  measure: average_cost {
+    type: average
+    sql: ${cost} ;;
+    value_format_name: usd
+  }
+```
+Do not confuse aggregate measures & non-aggregate dimensions in an Explore.
+
+10. UX Enhancement
+
+How fields are labeled & organized ? --> adjust parameters for their appearence in the UI.
+
+__Hidden parameter__: not helpful for users (mainly used for creating aggregations) & no need to be exposed to users.
+```
+  dimension: id {
+    hidden:  yes
+    type:  number
+    sql:  ${TABLE}.id ;;
+  }
+```
+__Label parameter__: change the way a field’s name appears in the UI. By default, based on the LookML object name (1st letter of each word capitalized, & the underscores converted into spaces) 
+A custom name can be more recognizable to users or help to distinguish multiple count for instance.
+```
+  dimension: count {
+    label:  "Number of order items"
+    type:  number
+    drill_fields: [detail*]
+  }
+```
+__Description parameter__: provides a definition of what a dimension/measure actually means
+```
+  dimension: long_fulfillment {
+    description: "Yes means the order took over 7 days to fulfill."
+    type: yesno
+    sql: ${days_fulfillment} > 7 ;;
+  }
+```
+
+__Drill Fields__: helpful to have the option to see the more detailed data behind the aggregate number & specify what data should be available to users.
+```
+  measure: count {
+    label: "Number of order items"
+    type: count
+    drill_fields: [order_id, user_id]
+  }
+```
+used when you click on a number of a view to have more details in the new window.
+
+__Sets__: allow you to define a list of fields in one place that you can then reuse as many times as you need. Update the list once to change it everywhere.
+
+To use a set in a drill on a measure: reference the name of the set followed by an __*__. 
+```
+  measure: count {
+    label: "Number of order items"
+    type: count
+    drill_fields: [detail*]
+  }
+
+  # ----- Sets of fields for drilling ------
+  set: detail {
+    fields: [
+      id,
+      orders.id,
+      users.id,
+      users.first_name,
+      users.last_name,
+      inventory_items.id,
+      inventory_items.product_name
+    ]
+  }
+```
+
+
+the lunch pause !!!!!!!!!!
+
+
+
+```
+
+```
+
+
+
+```
+
+```
+
+
+
+```
+
+```
+
+
+
+```
+
+```
