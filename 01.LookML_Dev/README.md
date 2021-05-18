@@ -1,7 +1,7 @@
 # LookML Developer
 
 Table of content:
-- [Getting started]#1-getting-started)
+- [Getting started](#1-getting-started)
 - [Building Reports](#2-building-reports)
 - [LookerML](#3-lookerml)
 

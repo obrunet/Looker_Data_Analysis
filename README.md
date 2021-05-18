@@ -16,8 +16,8 @@ In the Theory chapter are presented my personnal notes that summerize everything
 - [Getting started](01.LookML_Dev#1-getting-started)
 - [Building Reports](01.LookML_Dev#2-building-reports)
 - [LookerML](01.LookML_Dev#3-lookerml)
-- [Python API](01.LookML_Dev\python_api.md) 
-- [LookerML certification](01.LookML_Dev\what_to_know.md)
+- [Python API](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/python_api.md) 
+- [LookerML certification](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/what_to_know.md)
 
 ## Practice
 - to be continued
