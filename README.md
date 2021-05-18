@@ -1,14 +1,13 @@
 # Looker_Data_Analysis
+
+Get prepared for the Looker certifications !  
 __Work in progress...__
 
-```
-Looker makes use of a simple modeling language called LookML that lets data teams define the relationships in their database so business users can explore, save, and download data without needing to know SQL. The product was the first commercially available business intelligence platform built for and aimed at scalable or massively parallel relational database management systems like Amazon Redshift, Google BigQuery...
+*Looker makes use of a simple modeling language called LookML that lets data teams define the relationships in their database so business users can explore, save, and download data without needing to know SQL. The product was the first commercially available business intelligence platform built for and aimed at scalable or massively parallel relational database management systems like Amazon Redshift, Google BigQuery...
 [...]
-The Looker Platform for Data operates today as a part of Google Cloud Platform and offers a wide variety of tools for relational database work, business intelligence, and other related services. 
-```
+The Looker Platform for Data operates today as a part of Google Cloud Platform and offers a wide variety of tools for relational database work, business intelligence, and other related services.*  
 [Source](https://en.wikipedia.org/wiki/Looker_(company))
 
-Get prepared for the Looker certifications ! 
 
 ## Introduction
 In the Theory chapter are presented my personnal notes that summerize everything one need to know in order to get prepared for those exams/certifications. Then in the Practice section, you'll find various projects / data analysis made with Looker & LookerML.
@@ -33,5 +32,5 @@ In the Theory chapter are presented my personnal notes that summerize everything
 
 - Training
   - [Training by Looker](https://training.looker.com/) 
-- - [Qwiklabs - Quest "Exploring Data with Looker"](https://www.qwiklabs.com/quests/165)
+  - [Qwiklabs - Quest "Exploring Data with Looker"](https://www.qwiklabs.com/quests/165)
 
