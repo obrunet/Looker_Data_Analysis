@@ -4,7 +4,7 @@ Get prepared for the Looker certifications !
 __Work in progress...__
 
 *Looker makes use of a simple modeling language called LookML that lets data teams define the relationships in their database so business users can explore, save, and download data without needing to know SQL. The product was the first commercially available business intelligence platform built for and aimed at scalable or massively parallel relational database management systems like Amazon Redshift, Google BigQuery...
-[...]
+[...]  
 The Looker Platform for Data operates today as a part of Google Cloud Platform and offers a wide variety of tools for relational database work, business intelligence, and other related services.*  
 [Source](https://en.wikipedia.org/wiki/Looker_(company))
 
@@ -13,7 +13,7 @@ The Looker Platform for Data operates today as a part of Google Cloud Platform a
 In the Theory chapter are presented my personnal notes that summerize everything one need to know in order to get prepared for those exams/certifications. Then in the Practice section, you'll find various projects / data analysis made with Looker & LookerML.
 
 ## Contents
-- [Getting started](Looker_Data_Analysis/tree/main/01.LookML_Dev#1-getting-started)
+- [Getting started](01.LookML_Dev#1-getting-started)
 - [Building Reports](Looker_Data_Analysis/tree/main/01.LookML_Dev#2-building-reports)
 - [LookerML](Looker_Data_Analysis/tree/main/01.LookML_Dev#3-lookerml)
 - [Python API](Looker_Data_Analysis\01.LookML_Dev\python_api.md) 
