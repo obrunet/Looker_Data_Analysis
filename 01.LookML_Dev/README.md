@@ -48,7 +48,7 @@ __Folders__ are either shared, personnal, "all" depending on your permissions / 
 
 3 types of piles:
 - query tiles: you specify the data you want to show, defined from an explore or the dashboard itself
-- look link tiles: use teh qury & viz of a saved report (Look). The linked look must be in the same folder. Used when several dashboards need the same tile.
+- look link tiles: use the query & viz of a saved report (Look). The linked look must be in the same folder. Used when several dashboards need the same tile.
 - text tiles: headers, descriptions...
 
 ## 3. LookerML:
@@ -57,11 +57,11 @@ __Folders__ are either shared, personnal, "all" depending on your permissions / 
 LookerML is build around SQL with improvements: modularity, reusability & VCS such as git.
 
 1. The language
-__Looker builds & executes SQL queries__: it’s important to understanding how Looker generates SQL so that you can write __the most efficient__ queries.
+__Looker builds & executes SQL queries__: it’s important to understand how Looker generates SQL so that you can write __the most efficient__ queries.
 
 You define your __business logic based on columns__ in your table. When you add a dimension field to the Explore, Looker constructs a SQL query that includes that field and sends the query to your database. __A filter__ will populate the __WHERE clause__ of the query. If you filter by a field that is __an aggregate__, Looker will automatically apply that filter in __the HAVING clause__.
 
-2. 2 states of a Looker Data Model: 
+2. Two states of a Looker Data Model: 
 - __Production__: The data model is shared across all users & the LookML files are treated as read-only. 
 - In order to write or __change__ LookML in Looker, you'll need to __turn on Development Mode__. Then a separate version of the data model is provided so that you can edit and test without affecting end users.
 
