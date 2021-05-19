@@ -62,10 +62,11 @@ __Folders__ are either shared, personnal, "all" depending on your permissions / 
 
 ## 3. LookerML:
 
-0. __Why__: you create a DB & a model once, people without an in-depth knowledge can explore the data for themselves.
+0. __Why__:   
+you create a DB & a model once, people without an in-depth knowledge can explore the data for themselves.
 LookerML is build around SQL with improvements: modularity, reusability & VCS such as git.
 
-1. The language
+1. The language  
 __Looker builds & executes SQL queries__: it’s important to understand how Looker generates SQL so that you can write __the most efficient__ queries.
 
 You define your __business logic based on columns__ in your table. When you add a dimension field to the Explore, Looker constructs a SQL query that includes that field and sends the query to your database. __A filter__ will populate the __WHERE clause__ of the query. If you filter by a field that is __an aggregate__, Looker will automatically apply that filter in __the HAVING clause__.
@@ -88,7 +89,7 @@ You define your __business logic based on columns__ in your table. When you add 
   - Project Settings
 
 5. Git Branching
-- When in dev mode, it automatically creates a personal dev branch for you (read-only to all other devs). You areable to view and test, but not change, code in other dev' personal branches.
+- When in dev mode, it automatically creates a personal dev branch for you (read-only to all other devs). You are able to view and test, but not change, code in other dev' personal branches.
 - you can also create other Git branch in order to implement a quick fix: choose the branch you want to fork, make your fix & deploy to production.  
 - one can create a shared branch allowing easy collaboration on larger projects.
 
@@ -294,7 +295,7 @@ A new dimension named location of type: location. Most dimensions require only o
 ```
 9. Creation of measures
 
-Measures = objects used by Lookerto represent aggregate functions (sum, count, averages, count_distinct...), created in a similar manner to dimensions.
+Measures = objects used by Looker to represent aggregate functions (sum, count, averages, count_distinct...), created in a similar manner to dimensions.
 ```sql
   dimension: product_sku {
     type: string
