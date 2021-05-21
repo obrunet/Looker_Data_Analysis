@@ -1,4 +1,10 @@
-dimensions = columns in a table or transformations of those columns (to pivot data)
+### Key Concepts
+
+### Dimensions 
+- columns in a table or transformations & combinations of those columns (to pivot data)
+- the options your users will use to group their data (dimensions always go into the GROUP BY clause of the SQL that Looker generates, so dimensions cannot be aggregates).
+
+
 
 a measure = a summary or aggregate calculation (to make filter)
 
@@ -48,3 +54,29 @@ This grouping is called a "cohort".
 be able to compare the number of people with a certain name to the size of their cohort, and get a much better feel for popularity.
 
 You can create new tables of data in Looker with its derived table functionality. Just like a native table in your database, you start by creating a view. However, instead of telling that view which data table to pull from, you write the SQL for a new data table. You can see this in the lesson_5_cohorts view file, which has these contents:
+
+
+
+## Anatomy of a view
+
+```
+view: orders {                          # creates a view with the name of orders 
+  sql_table_name: public.orders ;;      # tells Looker which database table to associate with this view.
+
+  # When a Looker admin creates a connection in Looker, they define a default schema. 
+  # If that's the schema you want, and you name the view with exactly the same name as its table, 
+  # you don't even need to add the sql_table_name parameter.
+
+  dimension: id {
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.id ;;
+  }
+
+  measure: count {
+    type: count
+  }
+}
+
+
+```
