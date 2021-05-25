@@ -132,10 +132,54 @@ view: user_order_facts {
 
 ![tablet](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/Basics/ref_sql_param.png)
 
-| Pattern        | Examples           | Definition  |
-|--------|-------------|-----------------------|
-| ${TABLE}.field_name | ${TABLE}.status or ${TABLE}.sale_price	| This pattern automatically replaces the ${TABLE} variable with the database table that is associated with the view where the dimension lives.
-${field_name}	${status}
-${sale_price}	This pattern references an existing field from within the same view.
-${view_name.field_name}	${order.status}
-${order_items.sale_price}	This pattern references an existing field from a different view. Using this pattern does require that you have established the proper joins between views, which we'll discuss a little later.
+
+### Dimension Options
+
+- Defining __a primary key__ is very important: it gives Looker the info it needs to properly calculate measures (otherwise Looker will generally hide measures from that view to avoid displaying bad information to users).
+- __Link__
+```
+view: view_name {
+  dimension: field_name {
+    link: {
+      label: "desired label name"
+      url: "desired_url"
+      icon_url : "url_of_an_image_file"
+    }
+    # Possibly more links
+  }
+}
+```
+- __Case__
+allows you to specify several SQL conditions & the value that will appear to users if the condition is satisfied (similar to the SQL CASE WHEN function).
+
+From the order_items View File
+``` 
+  dimension: price_range {
+    case: {
+      when: {
+        sql: ${sale_price} < 20 ;;
+        label: "Inexpensive"
+      }
+      when: {
+        sql: ${sale_price} >= 20 AND ${sale_price} < 100 ;;
+        label: "Normal"
+      }
+      when: {
+        sql: ${sale_price} >= 100 ;;
+        label: "Expensive"
+      }
+      else: "Unknown"
+    }
+  }
+```
+The conditions are evaluated in the order that you write them. As soon as one condition evaluates to true that label is assigned to that row of data.
+
+- __value_format_name__ and __value_format__  
+allow you to easily format dimensions for your users, lets you specify one of several pre-defined formats. You can create additional named formats by using the named_value_format parameter.
+```
+  dimension: sale_price {
+    type: number
+    sql: ${TABLE}.sale_price ;;
+    value_format_name: usd
+  }
+```
