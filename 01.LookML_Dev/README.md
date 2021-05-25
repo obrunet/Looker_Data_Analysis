@@ -6,8 +6,10 @@ Table of content:
 - [LookerML](#3-lookerml)
 
 Other ressources:
+- [Key Concepts](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/Looker_concepts_cheatsheets.md)
 - [API and SDK](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/python_api.md) 
 - [What you need to know for the certification](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/what_to_know.md)
+- Source files: [Beginner](https://github.com/obrunet/Looker_Data_Analysis/tree/main/01.LookML_Dev/01.Basics), [Intermediate](https://github.com/obrunet/Looker_Data_Analysis/tree/main/01.LookML_Dev/02.Intermediate) & [Advanced](https://github.com/obrunet/Looker_Data_Analysis/tree/main/01.LookML_Dev/03.Advanced_lookml)
 
 ## 1. Getting started:
 

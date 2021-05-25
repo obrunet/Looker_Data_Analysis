@@ -144,7 +144,7 @@ view: user_order_facts {
 
 ### References in the sql Parameter
 
-![tablet](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/Basics/ref_sql_param.png)
+![tablet](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/ref_sql_param.png)
 
 
 ### Dimension Options
