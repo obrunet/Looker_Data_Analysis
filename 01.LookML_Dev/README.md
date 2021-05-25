@@ -293,6 +293,31 @@ A new dimension named location of type: location. Most dimensions require only o
     sql_longitude: ${longitude} ;;
   }
 ```
+- Distance  
+to calculate the distance between two "type: location" dimensions
+```
+  dimension: location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
+  }
+
+  dimension: distance_from_distribution_center {
+    type: distance
+    start_location_field: distribution_centers.location
+    end_location_field: users.location
+    units: miles
+  }
+```
+- Zipcode
+should be used with 5-digit US zipcode data
+```
+  dimension: zip {
+    type: zipcode
+    sql: ${TABLE}.zip ;;
+  }
+```
+
 9. Creation of measures
 
 Measures = objects used by Looker to represent aggregate functions (sum, count, averages, count_distinct...), created in a similar manner to dimensions.
