@@ -402,3 +402,14 @@ dimension: safe_id {
   ;;
 }
 ```
+### Parameters & Templated Filters
+- dimension, measure, sql, and type are all LookML parameters but this features is named with a Capital "P".
+- to expand the possible functionality
+- are forms of Liquid
+
+1. create a filter (for Templated Filters) or a parameter (for Parameters) to accept user input that will appear to the user as "Filter-only Fields" in the field picker.
+2. apply that user input to your data model by using Liquid.
+
+__Templated Filters__ are quite similar to Parameters. Key difference:
+- Parameters insert the user input directly into your Liquid tag (if you need very precise input)
+- Templated Filters interpret the user input (the user have more freedom)
