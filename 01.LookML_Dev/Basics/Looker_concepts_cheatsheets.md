@@ -21,10 +21,10 @@ allow you to create many dimensions all at once. Currently, solely used with tim
 ---> live inside of models.
 
 ### A model = 
-- contains explores (views the end-users interact with), 
+- contains explores (views the end-users interact with), the place where you'll define your explores. In general one model per database.
 - defines multiple views(that can be joined together)
 - lives in files
-- the place where you'll define your explores. In general one model per database. 
+- define certain high-level settings such as what database connection should be used
 However, models can be used to control various types of data access, so you might break this rule (see "Access Control & Permission Management" docs).
 
 ---> stored in model files. By definition, only one model per model file: you create a model by creating its file. The model name is the name of the file.
@@ -86,8 +86,23 @@ a model file contains:
 - Explores live inside of models.
 
 ```
+# determines which database connection this model will query
+connection: "thelook_events"
+include: "*.view.lkml"
 
+explore: order_items {
+  join: orders {
+    sql_on: ${orders.id} = ${order_items.order_id} ;;
+    type: left_outer
+    relationship: many_to_one
+  }
+  join: users {
+    sql_on: ${users.id} = ${orders.user_id} ;;
+    type: left_outer
+    relationship: many_to_one
+  }
 ```
+include : makes all of the view files in this project available to the model using the wildcard *, but you can list the files individually on multiple rows.
 
 ### Derived tables
 - many uses: such as calculating summary metrics and pre-aggregating data.
@@ -181,5 +196,64 @@ allow you to easily format dimensions for your users, lets you specify one of se
     type: number
     sql: ${TABLE}.sale_price ;;
     value_format_name: usd
+  }
+```
+
+### Dimension Groups
+allow you to create a set of dimensions all at once, based on a time column in your db. Currently, only used for timeframes.
+```
+  dimension_group: created {
+    type: time
+    datatype: datetime
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.created_at ;;
+  }
+```
+Referenced & named by combining the dimension group name and the timeframe: ``` ${created_time}```
+
+### Anatomy of a Measure
+types: count, sum, average, min, max ,number
+```
+  measure: total_cost {
+    type: sum
+    sql: ${cost} ;;
+    value_format_name: usd
+  }
+```
+The number type should be used to combine multiple measures, or when performing math on a measure.
+```
+  measure: total_profit {
+    type: number
+    sql: ${total_sale_price} - ${products.total_cost} ;;
+  }
+```
+
+### Measure Options
+- __drill_fields__: an option to show all of the records that comprise a measure when a user clicks it
+```
+measure: count {
+  type: count
+  drill_fields: [user_details*]
+}
+set: user_details {
+  fields: [id, name, city, state, country]
+}
+```
+- __filters__: users can apply filters on the Explore page to everything, whereas this feature allows you to filter only a specific measure.
+```
+  measure: female_count {
+    type: count
+    filters: {
+      field: gender
+      value: "Female"
+    }
   }
 ```
