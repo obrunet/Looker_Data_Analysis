@@ -259,7 +259,7 @@ set: user_details {
 
 # Advanced features
 
-## Labeling
+### Labeling
 
 - __description__: available to end-users, useful way to document precise definitions or usage notes ("i" info symbol in the field picker)
 ```
@@ -303,7 +303,7 @@ join: user_order_facts {
     group_label: "Sale Price"
   }
 ```
-## Datagroups
+### Datagroups
 By default, the results of all the queries are stored securely for 60 min (ie "cached" to improve performance instead of querying the db again).
 
 You can change this amount of time, or coordinate them with a feature called datagroups.
@@ -314,32 +314,91 @@ datagroup: standard_data_load {
 }
 ```
 The ```sql_trigger``` provides a query that Looker runs every 5 minutes. If the result of the query changes during one of those checks, Looker knows that it needs to run fresh queries. If the result of the query has not changed, Looker knows it may use the cached results.   
-The ```max_cache_age```tells Looker the maximum amount of time cached results may be used.
+The ```max_cache_age``` tells Looker the maximum amount of time cached results may be used.
 
 __Applying a Datagroup__: by using the ```persist_with``` parameter at the model level to set a default for all explores or at the explore level to override that default.
 ```
 persist_with: standard_data_load
 ```
-
-
+### Persistent Derived Table
+- By saving the results in your db, you can query the derived table more quickly. 
+- use datagroups to define how often it should be re-queried & re-saved.
 ```
-
+view: user_order_facts {
+  derived_table: {
+    sql:
+      SELECT
+        user_id,
+        MIN(DATE(created_at)) AS first_order_date,
+        COUNT(1) AS lifetime_orders
+      FROM
+        orders
+      GROUP BY
+        user_id ;;
+    datagroup_trigger: standard_data_load
+    distribution: "user_id"
+    sortkeys: ["first_order_date"]
+  }
 ```
-
-
-
+### Extensions
+- useful to re-use certain bits of code, in order to reduce repeated code and keep things better organized
+- for example: a basic view with a set of basic dimensions & measures. Then, additional extended views are created to add more options.
 ```
+explore: order_items {
+  view_name: order_items
+  from: order_items
 
+... lower in the file ...
+
+explore: order_items_warehouse {
+  extends: [order_items]
 ```
+### Liquid Templating
+to create more dynamic content:
+  - The action parameter
+  - The html parameter
+  - The label parameter of a field
+  - The link parameter
+  - Parameters that begin with sql (such as sql and sql_on)
 
-
-
+in __HTML__:
 ```
-
+  dimension: status {
+    type: string
+    sql: ${TABLE}.status ;;
+    html:
+      {% if value == 'Complete' %}
+        <div style="background-color:#D5EFEE">{{ value }}</div>
+      {% elsif value == 'Processing' or value == 'Shipped' %}
+        <div style="background-color:#FCECCC">{{ value }}</div>
+      {% elsif value == 'Cancelled' or value == 'Returned' %}
+        <div style="background-color:#EFD5D6">{{ value }}</div>
+      {% endif %}
+    ;;
+  }
 ```
-
-
-
+in __Links__: for example a Google search option
 ```
-
+From the products View File
+dimension: brand {
+  type: string
+  sql: ${TABLE}.brand ;;
+  link: {
+    label: "Google Search"
+    url: "http://www.google.com/search?q={{ value }}+Clothing"
+    icon_url: "http://google.com/favicon.ico"
+  }
+}
+```
+in __SQL__: for example masks the customer user ID if the Looker end-user is not allowed to see it (sensitive info)
+```
+dimension: safe_id {
+  sql:
+    CASE
+      WHEN '{{ _user_attributes['can_see_id'] }}' = 'Yes'
+      THEN ${id}::varchar
+      ELSE MD5(${id})
+    END
+  ;;
+}
 ```
