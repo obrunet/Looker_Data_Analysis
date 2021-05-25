@@ -4,9 +4,10 @@ Table of content:
 - [Getting started](#1-getting-started)
 - [Building Reports](#2-building-reports)
 - [LookerML](#3-lookerml)
+- [Key Concepts](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/Looker_concepts_cheatsheets.md)
 
 Other ressources:
-- [Key Concepts](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/Looker_concepts_cheatsheets.md)
+- [LookML Anki Memory Deck](https://github.com/obrunet/Anki_decks_-_memory_cards/blob/master/01.My_own_decks/Programming_languages/LookML/LookML.apkg) to memorize the syntax and all options of the language. 
 - [API and SDK](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/python_api.md) 
 - [What you need to know for the certification](https://github.com/obrunet/Looker_Data_Analysis/blob/main/01.LookML_Dev/what_to_know.md)
 - Source files: [Beginner](https://github.com/obrunet/Looker_Data_Analysis/tree/main/01.LookML_Dev/01.Basics), [Intermediate](https://github.com/obrunet/Looker_Data_Analysis/tree/main/01.LookML_Dev/02.Intermediate) & [Advanced](https://github.com/obrunet/Looker_Data_Analysis/tree/main/01.LookML_Dev/03.Advanced_lookml)
