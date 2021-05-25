@@ -91,6 +91,51 @@ a model file contains:
 
 ### Derived tables
 - many uses: such as calculating summary metrics and pre-aggregating data.
-- can be calculated on the fly each time they're queried, or they can be stored in your database (your admins'll need to enable that feature)
+- can be calculated on the fly each time they're queried, or they can be stored in your database - your admins'll need to enable that feature - (if persisted (i.e. "stored") in the db the performance are improved)
 - During creation: you'll write a SQL query against your database. The results of that query are then treated as a table within Looker. You can then use that table as normal to create dimensions, measures, etc. in LookML.
 - can be used to improve query performance in some contexts. However, many modern databases are so fast that this is unnecessary.
+
+
+
+
+### Anatomy of a model   
+```
+view: user_order_facts {
+
+  # declares that the view is going to be a derived table.
+  derived_table: {
+    sql:
+      SELECT
+        user_id,
+        MIN(DATE(created_at)) AS first_order_date
+      FROM
+        orders
+      GROUP BY
+        user_id ;;
+  }
+
+  dimension: user_id {
+    type: number
+    sql: ${TABLE}.user_id ;;
+    primary_key: yes
+    hidden: yes
+  }
+
+  dimension: first_order_date {
+    type: date
+    sql: ${TABLE}.first_order_date ;;
+  }
+}
+```
+
+### References in the sql Parameter
+
+![tablet](https://github.com/obrunet/Looker_Data_Analysis\01.LookML_Dev\Basics\ref_sql_param.png "")
+
+| Pattern        | Examples           | Definition  |
+|--------|-------------|-----------------------|
+| ${TABLE}.field_name | ${TABLE}.status or ${TABLE}.sale_price	| This pattern automatically replaces the ${TABLE} variable with the database table that is associated with the view where the dimension lives.
+${field_name}	${status}
+${sale_price}	This pattern references an existing field from within the same view.
+${view_name.field_name}	${order.status}
+${order_items.sale_price}	This pattern references an existing field from a different view. Using this pattern does require that you have established the proper joins between views, which we'll discuss a little later.
