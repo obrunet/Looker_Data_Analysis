@@ -1,4 +1,6 @@
-### Key Concepts
+# Key Concepts
+
+## Basic features 
 
 ### Dimensions 
 - columns in a table or transformations & combinations of those columns (to pivot data)
@@ -51,7 +53,7 @@ You can create new tables of data in Looker with its derived table functionality
 
 
 
-## Anatomy of a view
+### Anatomy of a view
 a view file contains:
 - the "sql_table_name"
 - view(s)
@@ -109,9 +111,6 @@ include : makes all of the view files in this project available to the model usi
 - can be calculated on the fly each time they're queried, or they can be stored in your database - your admins'll need to enable that feature - (if persisted (i.e. "stored") in the db the performance are improved)
 - During creation: you'll write a SQL query against your database. The results of that query are then treated as a table within Looker. You can then use that table as normal to create dimensions, measures, etc. in LookML.
 - can be used to improve query performance in some contexts. However, many modern databases are so fast that this is unnecessary.
-
-
-
 
 ### Anatomy of a model   
 ```
@@ -256,4 +255,91 @@ set: user_details {
       value: "Female"
     }
   }
+```
+
+# Advanced features
+
+## Labeling
+
+- __description__: available to end-users, useful way to document precise definitions or usage notes ("i" info symbol in the field picker)
+```
+  measure: sale_price_metric {
+    description: "Use with the Sale Price Metric Picker filter-only field"
+    type: number
+    label_from_parameter: sale_price_metric_picker
+    sql: {% parameter sale_price_metric_picker %}(${sale_price}) ;;
+    value_format_name: usd
+  }
+```
+- __label__: everything in LookML can take a label (Models, Explores, Views, Dimensions, Measures and other fields..) except joins which can be re-named in other ways. It simply replaces the name as end-users see it in Looks, Dashboards, and the Explore page.
+```
+explore: order_items_warehouse {
+  extends: [order_items]
+  label: "Order Items for the Warehouse"
+```
+- __view_label__: allows you to combine fields into the same view in the field picker, even if they aren't combined from a modeling perspective.
+
+```
+join: users {
+
+... lower in the file ...
+
+join: user_order_facts {
+  view_label: "Users"
+```
+- __group_label__: allows you to combine fields into a group in the field picker, within a given view. This automatically happens with dimension groups, but you can also do it manually with other fields.
+```
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    group_label: "Sale Price"
+  }
+
+  measure: average_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    group_label: "Sale Price"
+  }
+```
+## Datagroups
+By default, the results of all the queries are stored securely for 60 min (ie "cached" to improve performance instead of querying the db again).
+
+You can change this amount of time, or coordinate them with a feature called datagroups.
+```
+datagroup: standard_data_load {
+  sql_trigger: SELECT MAX(completed_at) FROM etl_jobs ;;
+  max_cache_age: "24 hours"
+}
+```
+The ```sql_trigger``` provides a query that Looker runs every 5 minutes. If the result of the query changes during one of those checks, Looker knows that it needs to run fresh queries. If the result of the query has not changed, Looker knows it may use the cached results.   
+The ```max_cache_age```tells Looker the maximum amount of time cached results may be used.
+
+__Applying a Datagroup__: by using the ```persist_with``` parameter at the model level to set a default for all explores or at the explore level to override that default.
+```
+persist_with: standard_data_load
+```
+
+
+```
+
+```
+
+
+
+```
+
+```
+
+
+
+```
+
+```
+
+
+
+```
+
 ```
